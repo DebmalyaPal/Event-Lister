@@ -7,8 +7,17 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.13.13"
 
-libraryDependencies += guice
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.0" % Test
+
+val h2Version = "1.4.192"
+
+
+libraryDependencies ++= Seq(
+  guice,
+  //"org.scalatestplus.play" % "scalatestplus-play" % "7.0.0" % Test,
+  "com.h2database" % "h2" % h2Version,
+  evolutions,
+  jdbc
+)
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.events.controllers._"
