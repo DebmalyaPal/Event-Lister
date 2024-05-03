@@ -1,25 +1,19 @@
 package services
 
 import models.Event
+import repository.EventRepository
 
-class EventService {
-
-  var eventList: List[Event] = List(
-    Event(1, "Birthday", "April 24, 2024", "Sachin Tendulkar's Birthday"),
-    Event(2, "Birthday", "June 24, 2024", "Lionel Messi's Birthday"),
-    Event(3, "Birthday", "February 05, 2024", "CR7's Birthday"),
-    Event(4, "Birthday", "October 10, 2024", "DP's Birthday"),
-  )
+object EventService {
 
   def getEvent : List[Event] = {
-    eventList
+    EventRepository.getEvent()
   }
 
   def getEventById(id: Int): Option[Event] = {
-    eventList.find(event => event.id == id)
+    EventRepository.getEventById(id)
   }
 
-  def addEvent(event : Event) : Event = {
+  def addEvent(newEvent : Event) : Option[Event] = {
     ???
   }
 

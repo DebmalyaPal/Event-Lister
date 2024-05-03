@@ -1,6 +1,5 @@
 package controllers
 
-import models.Event
 import services.EventService
 
 import javax.inject._
@@ -14,17 +13,15 @@ import play.api.libs.json._
 @Singleton
 class EventController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  private val eventService = new EventService()
-
-  def getEvent(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+  def getEvent: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(
-      Json.toJson(eventService.getEvent)
+      Json.toJson(EventService.getEvent)
     )
   }
 
-  def getEventById(id : Int) = Action { implicit request: Request[AnyContent] =>
+  def getEventById(id : Int): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(
-      Json.toJson(eventService.getEventById(id))
+      Json.toJson(EventService.getEventById(id))
     )
   }
 
