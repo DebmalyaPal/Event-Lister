@@ -3,14 +3,19 @@ package services
 import models.Event
 import repository.EventRepository
 
-object EventService {
+import javax.inject.{Inject, Singleton}
+
+@Singleton
+class EventService @Inject() (
+                             eventRepository: EventRepository
+                             ) {
 
   def getEvent : List[Event] = {
-    EventRepository.getEvent()
+    eventRepository.getEvent()
   }
 
   def getEventById(id: Int): Option[Event] = {
-    EventRepository.getEventById(id)
+    eventRepository.getEventById(id)
   }
 
   def addEvent(newEvent : Event) : Option[Event] = {

@@ -3,14 +3,17 @@ package services
 import models.User
 import repository.UserRepository
 
-object UserService {
+import javax.inject.{Inject, Singleton}
+
+@Singleton
+class UserService @Inject() (userRepository: UserRepository) {
 
   def getUser : List[User] = {
-    UserRepository.getUser()
+    userRepository.getUser
   }
 
   def getUserById(id: Int): Option[User] = {
-    UserRepository.getUserById(id)
+    userRepository.getUserById(id)
   }
 
   def addUser(user: User): User = {

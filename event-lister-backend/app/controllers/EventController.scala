@@ -11,17 +11,19 @@ import play.api.libs.json._
  * application's home page.
  */
 @Singleton
-class EventController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class EventController @Inject()(val controllerComponents: ControllerComponents,
+                                eventService: EventService
+                               ) extends BaseController {
 
   def getEvent: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(
-      Json.toJson(EventService.getEvent)
+      Json.toJson(eventService.getEvent)
     )
   }
 
   def getEventById(id : Int): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(
-      Json.toJson(EventService.getEventById(id))
+      Json.toJson(eventService.getEventById(id))
     )
   }
 

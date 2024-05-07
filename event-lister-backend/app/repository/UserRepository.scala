@@ -1,18 +1,23 @@
 package repository
 
 import models.User
+
 import java.util.Calendar
+import javax.inject.{Inject, Singleton}
 
-object UserRepository {
+@Singleton
+class UserRepository @Inject() {
 
-  val userList : List[User] = List(
+  private val userList : List[User] = List(
     User(
-      id = 1, email = "user1@email.com", name = "User 1", updated = Calendar.getInstance().getTime, password = "ABCD"),
+      id = 1, email = "user1@email.com", name = "User 1", updated = Calendar.getInstance().getTime, password = "ABCD"
+    ),
     User(
-      id = 2, email = "user2@email.com", name = "User 2", updated = Calendar.getInstance().getTime, password = "1234")
+      id = 2, email = "user2@email.com", name = "User 2", updated = Calendar.getInstance().getTime, password = "1234"
+    )
   )
 
-  def getUser():List[User] = {
+  def getUser:List[User] = {
     userList
   }
 
