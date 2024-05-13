@@ -9,6 +9,7 @@ scalaVersion := "2.13.13"
 
 
 val h2Version = "1.4.192"
+val sangriaVersion = "4.0.2"
 
 
 libraryDependencies ++= Seq(
@@ -16,7 +17,8 @@ libraryDependencies ++= Seq(
   //"org.scalatestplus.play" % "scalatestplus-play" % "7.0.0" % Test,
   "com.h2database" % "h2" % h2Version,
   evolutions,
-  jdbc
+  jdbc,
+  "org.sangria-graphql" %% "sangria" % sangriaVersion
 )
 
 // Adds additional packages into Twirl

@@ -10,10 +10,10 @@ class UserRepository @Inject() {
 
   private val userList : List[User] = List(
     User(
-      id = 1, email = "user1@email.com", name = "User 1", updated = Calendar.getInstance().getTime, password = "ABCD"
+      id = 1, email = "user1@email.com", name = "User 1", password = "ABCD"
     ),
     User(
-      id = 2, email = "user2@email.com", name = "User 2", updated = Calendar.getInstance().getTime, password = "1234"
+      id = 2, email = "user2@email.com", name = "User 2", password = "1234"
     )
   )
 

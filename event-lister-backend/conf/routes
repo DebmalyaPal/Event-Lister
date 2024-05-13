@@ -4,6 +4,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
+GET     /                           controllers.Application.index()
 GET     /event                      controllers.EventController.getEvent()
 GET     /event/:id                  controllers.EventController.getEventById(id: Int)
 GET     /user                       controllers.UserController.getUser()

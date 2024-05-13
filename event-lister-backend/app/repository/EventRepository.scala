@@ -2,16 +2,17 @@ package repository
 
 import models.Event
 
+import java.time.OffsetDateTime
 import javax.inject.{Inject, Singleton}
 
 @Singleton
 class EventRepository @Inject() {
 
   private val eventList : List[Event] = List(
-    Event(1, "Birthday", "April 24, 2024", "Sachin Tendulkar's Birthday"),
-    Event(2, "Birthday", "June 24, 2024", "Lionel Messi's Birthday"),
-    Event(3, "Birthday", "February 05, 2024", "CR7's Birthday"),
-    Event(4, "Birthday", "October 10, 2024", "DP's Birthday")
+    Event(1, "Birthday", "1973-04-24", "Sachin Tendulkar's Birthday"),
+    Event(2, "Birthday", "1987-06-24", "Lionel Messi's Birthday"),
+    Event(3, "Birthday", "1985-02-05", "CR7's Birthday"),
+    Event(4, "Birthday", "1999-10-10", "DP's Birthday")
   )
 
   def getEvent(): List[Event] = {
