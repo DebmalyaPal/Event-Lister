@@ -18,13 +18,13 @@ trait EventType {
       Field(
         name = "getEvents",
         ListType(eventType),
-        resolve = (context) => context.ctx.getEvent()
+        resolve = context => context.ctx.getEvent()
       ),
       Field(
         name = "getEventById",
         OptionType(eventType),
         arguments = ID :: Nil,
-        resolve = (context) => context.ctx.getEventById(context.arg(ID))
+        resolve = context => context.ctx.getEventById(context.arg(ID))
       )
     )
   )

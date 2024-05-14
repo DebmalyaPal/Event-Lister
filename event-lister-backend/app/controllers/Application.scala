@@ -4,7 +4,8 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc._
 
 @Singleton
-class Application @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class Application @Inject()(val controllerComponents: ControllerComponents)
+  extends BaseController {
 
   /**
    * Create an Action to render an HTML page.
