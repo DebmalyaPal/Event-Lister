@@ -18,7 +18,9 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % h2Version,
   evolutions,
   jdbc,
-  "org.sangria-graphql" %% "sangria" % sangriaVersion
+  "org.sangria-graphql" %% "sangria" % sangriaVersion,
+  "org.sangria-graphql" %% "sangria-play-json" % "2.0.2"
+
 )
 
 // Adds additional packages into Twirl
