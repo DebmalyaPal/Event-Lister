@@ -1,29 +1,16 @@
 import React, { useEffect, useState } from "react";
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
-
-export interface Event {
-    id : Number,
-    event_type : String,
-    date : String,
-    description : String
-}
+import { useGetAllEvents } from "../GraphQL/EventQueries";
+import { Event } from "../Models/Event";
 
 
 export default function EventList() {
 
-    const [eventList, setEventList] = useState<Event[]>([])
+    const { loading, error, data } = useGetAllEvents();
 
-    function fetchEventList() {
-        const response = fetch ("http://localhost:9000/event").then(
-            response => response.json()
-        ).then(response => setEventList(response))
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
-    useEffect (
-        () => { fetchEventList(); },
-        []
-    );
-    
     return (
         <div>
             <table className="table table-dark table-striped mx-auto"
@@ -43,12 +30,13 @@ export default function EventList() {
                 </thead>
                 <tbody>
                     {
-                        eventList.map(event =>
+                        data?.getEvent.map(
+                            (event : Event) =>
                                 <tr key = { event.id.toString() }>
-                                    <td>{ event.id.toString() }</td>
-                                    <td>{ event.event_type }</td>
-                                    <td>{ event.date }</td>
-                                    <td>{ event.description }</td>
+                                    <td> { event.id.toString() } </td>
+                                    <td> { event.event_type } </td>
+                                    <td> { event.date } </td>
+                                    <td> { event.description } </td>
                                 </tr>
                         )
                     }
