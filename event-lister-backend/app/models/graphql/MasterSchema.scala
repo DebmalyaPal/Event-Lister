@@ -15,8 +15,8 @@ trait SubSchema {
 
 @Singleton
 class MasterSchema @Inject() (
-                             userSchema: UserSchema,
-                             eventSchema: EventSchema,
+                               userSchema: UserSchema,
+                               eventSchema: EventSchema,
                              ) {
 
   private lazy val subSchemaList : Seq[SubSchema] = List(

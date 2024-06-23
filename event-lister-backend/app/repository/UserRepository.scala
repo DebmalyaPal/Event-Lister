@@ -20,10 +20,12 @@ class UserRepository @Inject()(db : Database, implicit val databaseExecutionCont
         userList += User(
           id = rs.getInt(1),
           email = rs.getString(2),
-          name = rs.getString(3),
-          created = rs.getString(4),
-          updated = rs.getString(5),
-          password = rs.getString(6)
+          first_name = rs.getString(3),
+          middle_name = rs.getString(4),
+          last_name = rs.getString(5),
+          created = rs.getString(6),
+          updated = rs.getString(7),
+          password = rs.getString(8)
         )
       }
     }
@@ -34,7 +36,7 @@ class UserRepository @Inject()(db : Database, implicit val databaseExecutionCont
   def getUserById(id: Int): Option[User] = {
     var user : Option[User] = None
     db.withConnection { conn =>
-      val query = s"SELECT * FROM users WHERE id=${id}"
+      val query = s"SELECT * FROM users WHERE id=$id"
       val rs: ResultSet = conn.createStatement().executeQuery(query)
       while (rs.next()) {
         user = Some(
@@ -44,7 +46,9 @@ class UserRepository @Inject()(db : Database, implicit val databaseExecutionCont
             rs.getString(3),
             rs.getString(4),
             rs.getString(5),
-            rs.getString(6)
+            rs.getString(6),
+            rs.getString(7),
+            rs.getString(8)
           )
         )
       }

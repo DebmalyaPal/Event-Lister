@@ -1,13 +1,13 @@
 package models.graphql.subschema
 
-import models.graphql.{MasterContext, SubSchema}
+import models.graphql.{ MasterContext, SubSchema }
 import models.graphql.types.EventType
 import services.EventService
 import sangria.schema._
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class EventSchema @Inject() (
+class EventSchema @Inject()(
                             eventService: EventService
                             ) extends SubSchema {
 
