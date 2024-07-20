@@ -1,6 +1,6 @@
 package models.graphql.subschema
 
-import models.graphql.{MasterContext, SubSchema}
+import models.graphql.{ MasterContext, SubSchema }
 import models.graphql.types.UserType
 import services.UserService
 import sangria.schema._

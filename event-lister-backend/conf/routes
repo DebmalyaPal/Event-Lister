@@ -6,6 +6,10 @@
 # An example controller showing a sample home page
 GET     /                           controllers.Application.index()
 
+GET     /categories                 controllers.CategoryController.getCategory
+GET     /users                      controllers.UserController.getUser
+GET     /events                     controllers.EventController.getEvent
+
 POST    /graphql                    controllers.Application.graphqlBody
 
 # Map static resources from the /public folder to the /assets URL path

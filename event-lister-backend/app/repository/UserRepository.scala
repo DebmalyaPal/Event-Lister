@@ -4,17 +4,20 @@ import models.User
 import play.api.db.Database
 
 import java.sql.ResultSet
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 import scala.collection.mutable.ListBuffer
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
-class UserRepository @Inject()(db : Database, implicit val databaseExecutionContext : ExecutionContext) {
+class UserRepository @Inject()(
+                                db : Database,
+                                implicit val databaseExecutionContext : ExecutionContext
+                              ) {
 
   def getUser:List[User] = {
     val userList = new ListBuffer[User]()
     db.withConnection { conn =>
-      val query : String = "SELECT * FROM users"
+      val query : String = "SELECT id, email, first_name, middle_name, last_name, created, updated, password FROM users"
       val rs : ResultSet = conn.createStatement().executeQuery(query)
       while (rs.next()) {
         userList += User(
@@ -41,7 +44,7 @@ class UserRepository @Inject()(db : Database, implicit val databaseExecutionCont
       while (rs.next()) {
         user = Some(
           User(
-            rs.getInt(1).toInt,
+            rs.getInt(1),
             rs.getString(2),
             rs.getString(3),
             rs.getString(4),
@@ -60,7 +63,7 @@ class UserRepository @Inject()(db : Database, implicit val databaseExecutionCont
     ???
   }
 
-  def updateUser(id: Int, user: User): User = {
+  def updateUser(id: Int, user: User): Either[String, User] = {
     ???
   }
 

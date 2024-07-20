@@ -7,7 +7,8 @@ case class Event(
                   category: Category,
                   date: String,
                   description: String,
-                  notes: String
+                  notes: String,
+                  user: User
                 )
 
 object Event {

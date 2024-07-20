@@ -1,9 +1,9 @@
 package models.graphql
 
-import models.graphql.subschema.{EventSchema, UserSchema}
-import sangria.schema.{Field, ObjectType, Schema, UpdateCtx}
+import models.graphql.subschema.{ CategorySchema, EventSchema, UserSchema }
+import sangria.schema.{ Field, ObjectType, Schema }
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 
 trait SubSchema {
 
@@ -17,11 +17,13 @@ trait SubSchema {
 class MasterSchema @Inject() (
                                userSchema: UserSchema,
                                eventSchema: EventSchema,
+                               categorySchema: CategorySchema
                              ) {
 
   private lazy val subSchemaList : Seq[SubSchema] = List(
     userSchema,
-    eventSchema
+    eventSchema,
+    categorySchema
   )
 
   private def queriesList : Seq[Field[MasterContext, Unit]] = subSchemaList.flatMap(_.queries)

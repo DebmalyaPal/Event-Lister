@@ -1,33 +1,75 @@
 package repository
 
 import models.Event
+import play.api.db.Database
 
-import java.time.OffsetDateTime
-import javax.inject.{Inject, Singleton}
+import java.sql.ResultSet
+import javax.inject.{ Inject, Singleton }
+import scala.collection.mutable.ListBuffer
+import scala.concurrent.ExecutionContext
 
 @Singleton
-class EventRepository @Inject() {
+class EventRepository @Inject()(
+                                 db : Database,
+                                 implicit val databaseExecutionContext : ExecutionContext,
+                                 userRepository: UserRepository,
+                                 categoryRepository: CategoryRepository
+                               ) {
 
-  private val eventList : List[Event] = List(
-    Event(1, "Birthday", "1973-04-24", "Sachin Tendulkar's Birthday"),
-    Event(2, "Birthday", "1987-06-24", "Lionel Messi's Birthday"),
-    Event(3, "Birthday", "1985-02-05", "CR7's Birthday"),
-    Event(4, "Birthday", "1999-10-10", "DP's Birthday")
-  )
+  def getEvent: List[Event] = {
+    val eventList = new ListBuffer[Event]()
+    db.withConnection { conn =>
+      val query : String = "SELECT e.id, c.id, e.date, e.description, e.notes, ei.user_id " +
+        "FROM events e " +
+        "JOIN events_info ei ON e.id=ei.event_id " +
+        "JOIN category c ON c.id=ei.category_id;"
+      val rs : ResultSet = conn.createStatement().executeQuery(query)
+      while (rs.next()) {
+        eventList += Event(
+          id = rs.getInt(1),
+          category = categoryRepository.getCategoryById(rs.getInt(2)).get,
+          date = rs.getString(3),
+          description = rs.getString(4),
+          notes = rs.getString(5),
+          user = userRepository.getUserById(rs.getInt(6)).get
+        )
+      }
+    }
 
-  def getEvent(): List[Event] = {
-    eventList
+    eventList.toList
   }
 
   def getEventById(id : Int) : Option[Event] = {
-    eventList.find(event => event.id == id)
+    var event: Option[Event] = None
+    db.withConnection { conn =>
+      val query : String = "SELECT e.id, c.id, e.date, e.description, e.notes, ei.user_id " +
+        "FROM events e " +
+        "JOIN events_info ei ON e.id=ei.event_id " +
+        "JOIN categories c ON c.id=ei.category_id " +
+        s"WHERE e.id=$id;"
+      val rs : ResultSet = conn.createStatement().executeQuery(query)
+      while (rs.next()) {
+        event = Some(
+          Event(
+            id = rs.getInt(1),
+            category = categoryRepository.getCategoryById(rs.getInt(2)).get,
+            date = rs.getString(3),
+            description = rs.getString(4),
+            notes = rs.getString(5),
+            user = userRepository.getUserById(6).get
+          )
+        )
+      }
+    }
+
+    event
   }
 
   def addEvent(event: Event): Event = {
     ???
   }
 
-  def updateEvent(id: Int, event: Event): Option[Event] = {
+  def updateEvent(id: Int, event: Event): Either[String, Event] = {
     ???
   }
 

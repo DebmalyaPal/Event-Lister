@@ -11,7 +11,7 @@ class EventService @Inject() (
                              ) {
 
   def getEvent : List[Event] = {
-    eventRepository.getEvent()
+    eventRepository.getEvent
   }
 
   def getEventById(id: Int): Option[Event] = {
@@ -22,7 +22,7 @@ class EventService @Inject() (
     ???
   }
 
-  def updateEvent(id : Int, event : Event) : Option[Event] = {
+  def updateEvent(id : Int, event : Event) : Either[String, Event] = {
     ???
   }
 
