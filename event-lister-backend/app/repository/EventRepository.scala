@@ -19,9 +19,9 @@ class EventRepository @Inject()(
   def getEvent: List[Event] = {
     val eventList = new ListBuffer[Event]()
     db.withConnection { conn =>
-      val query : String = "SELECT e.id, c.id, e.date, e.description, e.notes, ei.user_id " +
-        "FROM events e " +
-        "JOIN events_info ei ON e.id=ei.event_id " +
+      val query : String = "SELECT ei.id, c.id, ei.date, ei.description, ei.notes, e.user_id " +
+        "FROM events_info ei " +
+        "JOIN events e ON e.event_id=ei.id " +
         "JOIN category c ON c.id=ei.category_id;"
       val rs : ResultSet = conn.createStatement().executeQuery(query)
       while (rs.next()) {

@@ -6,7 +6,7 @@
 CREATE TABLE IF NOT EXISTS events_info (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     category_id INTEGER REFERENCES category(id),
-    date TIMESTAMP NOT NULL,
+    date DATE NOT NULL,
     description TEXT NOT NULL,
     notes TEXT
 );
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS events_info (
 CREATE TABLE IF NOT EXISTS events (
     event_id INTEGER REFERENCES events_info(id),
     user_id INTEGER REFERENCES users(id)
-)
+);
 
 -- !Downs
 DROP TABLE events_info;
